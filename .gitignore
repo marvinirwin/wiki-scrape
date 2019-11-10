@@ -1,0 +1,9 @@
+*.html
+*.gif
+*.svg
+*.jpg
+*.jpeg
+*.png
+package-lock.json
+test.py
+node_modules
