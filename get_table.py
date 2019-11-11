@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
-
 from base import base
-from get_image import getImage
+from get_image import getImage, getImageFromPage
 from get_page import getPage
 
 
@@ -18,15 +17,24 @@ def getTable(url, rowSelector, filterFunc, getFunc):
     return results
 
 
-
 def getGoodProps(el):
     # getImage is implemented in another file, it will fetch the image and return a proper href
-    el['src'] = getImage(base + el['href'])
-    el['href'] = 'https://en.wikipedia.org' + el['href']
+    return {
+        # Xi Jinping
+        'personName': el.get('title'),
+        #'/wiki/File:Xi_Jinping_2016.jpg'
+        'personPageHref': base + el.get('href'),
+        'imageHref': getImageFromPage(base + el.get('href'))
+    }
 
-print(getTable(
-    'https://en.wikipedia.org/wiki/Politburo_Standing_Committee_of_the_Communist_Party_of_China',
-    '#mw-content-text > div > table.wikitable > tbody > tr > td:nth-child(2) > div > div > a',
-    lambda x: True,
-    getGoodProps
-))
+
+def getStandingCommitee():
+    return getTable(
+        'https://en.wikipedia.org/wiki/Politburo_Standing_Committee_of_the_Communist_Party_of_China',
+        '#mw-content-text > div > table.wikitable > tbody > tr > td:nth-child(4) > a',
+        lambda x: True,
+        getGoodProps
+    )
+
+
+# v = getStandingCommitee()

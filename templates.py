@@ -11,18 +11,15 @@ baseString = """
 </html>
 """
 
-
-def staffString(**kwargs):
-    return """
-    <div><a href="{wikipediaLink}">{personName}</a></div>
-    <img src="{imageSource}"/>
-    """.format(kwargs)
-
-
-def sectionString(**kwargs):
-    return """
+staffString = """
+    <div><a href="{personPageHref}">{personName}</a></div>
+    <img src="{imageHref}"/>
+    """
+sectionString = """
     <div>
     <h3>{sectionName}</h3> 
     {sectionContent}
     </div>
-    """.format(kwargs)
+    """
+
+
